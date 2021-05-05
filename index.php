@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" />
     <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js"></script>
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css" rel="stylesheet" />
+
+        
     <style>
         #header {
             position: relative;
@@ -70,7 +72,7 @@
 		h1 {
 			font-size: 22px;
 			margin: 0;
-			font-weight: 400;
+			font-weight: 600;
 			line-height: 20px;
 			padding: 20px 2px;
 		}
@@ -90,7 +92,7 @@
 			min-height: 60px;
 			line-height: 60px;
 			padding: 0 10px;
-			background-color: #654321;
+			background-color: #d65a31;
 			color: #fff;
 		}
 
@@ -105,6 +107,7 @@
 			border-bottom: 1px solid #eee;
 			padding: 10px;
 			text-decoration: none;
+            font-size: 11px;
 		}
 
 		.listings .item:last-child {
@@ -113,8 +116,9 @@
 
 		.listings .item .title {
 			display: block;
-			color: #C4A484;
-			font-weight: 700;
+			color: #393e46;
+			font-weight: 600;
+            font-size: 15px;
 		}
 
 		.listings .item .title small {
@@ -123,7 +127,7 @@
 
 		.listings .item.active .title,
 		.listings .item .title:hover {
-			color: #654321;
+			color: #d65a31;
 		}
 
 		.listings .item.active {
@@ -147,11 +151,10 @@
 		}
 
 		.marker {
-			background-image: url('bengkel.png');
-			background-size: cover;
+			background-size: auto;
+            background-repeat: no-repeat;
 			width: 40px;
 			height: 40px;
-			border-radius: 50%;
 			cursor: pointer;
 		}
 
@@ -186,13 +189,14 @@
 		}
 
 		.mapboxgl-popup-content h3 {
-			background: #654321;
+			background: #222831;
 			color: #fff;
 			margin: 0;
 			display: block;
 			padding: 10px;
 			border-radius: 3px 3px 0 0;
-			font-weight: 700;
+			font-weight: 600;
+            font-size: 11px;
 			margin-top: -15px;
 		}
 
@@ -201,6 +205,7 @@
 			display: block;
 			padding: 10px 10px 10px 10px;
 			font-weight: 400;
+            font-size: 11px;
 		}
 
 		.mapboxgl-popup-content div {
@@ -421,7 +426,8 @@
                     "properties":{
                         "nama": "' . $row['nama'] . '",
                         "alamat": "' . $row['alamat'] . '",
-                        "telepon": "' . $row['telepon'] . '"
+                        "telepon": "' . $row['telepon'] . '",
+                        "tipe": "' . $row['tipe'] . '"
                     },
                     "geometry":{
                         "type": "Point",
@@ -460,6 +466,10 @@
                 var el = document.createElement('div');
                 el.id = 'marker-' + marker.properties.id;
                 el.className = 'marker';
+                el.style.backgroundImage =
+                    'url(img/' +
+                    marker.properties.tipe +
+                    '.svg)';
                 new mapboxgl.Marker(el, {
                         offset: [0, -23]
                     })
