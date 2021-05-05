@@ -2,6 +2,8 @@
 
 include "koneksi.php"; // Using database connection file here
 
+$test = 0;
+
 $id = $_GET['id']; // get id through query string
 
 $qry = mysqli_query($con,"select * from datasemuabengkel where id='$id'"); // select query
