@@ -1,40 +1,24 @@
-<?php 
-session_start(); 
-include "koneksi.php";
-
-if (isset($_POST['username']) && isset($_POST['password'])) {
-
-	function validate($data){
-       $data = trim($data);
-	   $data = stripslashes($data);
-	   $data = htmlspecialchars($data);
-	   return $data;
-	}
-
-	$username = validate($_POST['username']);
-	$password = validate($_POST['password']);
-    $host=$_SERVER['HTTP_HOST'];
-    $uri=rtrim(dirname($_SERVER['PHP_SELF']),'/\\');
-
-	if (empty($username)) {
-		echo '<script>alert("Username atau Password Salah !!!"); window.location.href="index.php"</script>';
-	}else if(empty($password)){
-        echo '<script>alert("Username atau Password Salah !!!"); window.location.href="index.php"</script>';
-	}else{
-		$sql = "SELECT * FROM user WHERE username='$username' AND password='$password'";
-
-		$result = mysqli_query($con, $sql);
-
-		if (mysqli_num_rows($result) === 1) {
-			$row = mysqli_fetch_assoc($result);
-            if ($row['username'] === $username && $row['password'] === $password) {
-            	$_SESSION['username'] = $row['username'];
-            	header("location:http://$host$uri/$extra");
-		        exit();
-            }else{
-                echo '<script>alert("Username atau Password Salah !!!"); window.location.href="index.php"</script>';
-            }
-		}
-	}
-	
+<?php
+session_start();
+require 'koneksi.php'; // menyisipkan file koneksi
+ 
+if (isset($_POST['username'])) { // check apakah ada pengiriman data
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+ 
+ 
+    $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+ 
+    $query = $con->query($sql);
+ 
+    if ($query->num_rows > 0) { // jika datanya ada
+        $row = $query->fetch_assoc();
+        $_SESSION['namaLog'] = $row['nama']; // menyimpan nama yang login pada session
+        header('location:admin.php');
+ 
+    } else { // jika datanya tidak ada
+        echo "<script>alert('Username & Password Salah !!!'); window.location.href='index.php'</script>";
+    }
+    exit();
 }
+?>s

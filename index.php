@@ -303,6 +303,7 @@
                     <th>Telepon</th>
                     <th>Longitude</th>
                     <th>Latitude</th>
+                    <th>Tipe</th>
                     <th></th>
                 </tr>
                 <?php
@@ -317,6 +318,7 @@
 							<td>' . $data['telepon'] . '</td>
 							<td>' . $data['longitude'] . '</td>
                             <td>' . $data['latitude'] . '</td>
+                            <td>' . $data['tipe'] . '</td>
 							<td><a href="edit.php?id=' . $data['id_bengkel'] . '" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i></a></td>
 							<td><a href="delete.php?id=' . $data['id_bengkel'] . '" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\')"><i class="fas fa-backspace"></i></a></td>
 						';
@@ -363,15 +365,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="admin.php" method="POST">
+                    <form action="login.php" method="POST">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" id="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" placeholder="Username">
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a class="btn btn-primary" role="button">Login</a>
+                        <button class="btn btn-danger" type="submit">Login</button>
                     </form>
                 </div>
             </div>
