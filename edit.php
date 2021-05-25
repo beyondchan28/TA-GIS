@@ -1,89 +1,130 @@
-<?php
-
-include "koneksi.php"; // Using database connection file here
-
-$test = 0;
-
-$id = $_GET['id']; // get id through query string
-
-$qry = mysqli_query($con,"select * from datasemuabengkel where id='$id'"); // select query
-
-$data = mysqli_fetch_array($qry); // fetch data
-
-if(isset($_POST['update'])) // when click on Update button
-{
-    $nama = $_POST['nama'];
-    $alamat = $_POST['alamat'];
-    $telepon = $_POST['telepon'];
-    $website = $_POST['website'];
-    $longitude = $_POST['longitude'];
-    $latitude = $_POST['latitude'];
+<?php include('koneksi.php'); ?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Halaman Admin</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
-    $edit = mysqli_query($con,"update datasemuabengkel set nama='$nama', alamat='$alamat', telepon='$telepon', longitude='$longitude', latitude='$latitude', keterangan='$keterangan'");
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+		<a class="navbar-brand" href="admin.php">Data Bengkel</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+ 
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="tambah.php">Tambah</a>
+					</li>
+                    <li class="nav-item">
+						<a class="nav-link" href="logout.php">Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
 	
-    if($edit)
-    {
-        header("location:all_records.php");
-        exit;
-    }
-}
-?>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Form Login</title>
-        <link rel="canonical" href="index.php">
-        <!-- Bootstrap core CSS -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="#" rel="stylesheet">
-    </head>
-    <body class="text-left">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                <h2>Update Data Lokasi</h2>
-                <br>
-                <form method = "POST">
-                    <div class="mo-3">
-                    <label class = "form-label">Nama Lokasi</label>
-                    <div class="col-sm-10">
-                    <input type="text" name = "nama" class="form-control form-control-sm">
-                    </div>
-                    </div>
-                    <div class="mo-3">
-                    <label class = "form-label">Alamat</label>  
-                    <div class="col-sm-10">
-                    <textarea name = "alamat" class="form-control form-control-sm"></textarea>
-                    </div>
-                    <div class="mo-3">
-                    <label class="form-label">No.Telepon</label>
-                    <div class="col-sm-10">
-                    <input type="text" name ="telepon" class="form-control form-control-sm">
-                    </div>
-                    </div>
-                    <div class="mo-3">
-                    <label class = "form-label">Longitude</label>
-                    <div class="col-sm-10">
-                        <input type="text" name = "lng" class="form-control form-control-sm">
-                    </div>
-                    </div>
-                    <div class="mo-3">
-                    <label class = "form-label">Latitude</label>
-                    <div class="col-sm-10">
-                        <input type="text" name = "lat" class="form-control form-control-sm">
-                    </div>
-                    </div>
-                    <div class="mo-3">
-                    <label class = "form-label">Keterangan</label>
-                    <div class="col-sm-10">
-                        <input type="text" name = "keterangan" class="form-control form-control-sm">
-                    </div>
-                    </div>
-                <button type="submit" name="update" value="Update">SUBMIT</button>
-                </form>
-                </div>
-            </div>
-        </div>
+	<div class="container" style="margin-top:20px">
+		<h2>Edit Data Bengkel</h2>
+		
+		<hr>
+		
+		<?php
+			//membuat variabel $id untuk menyimpan id dari GET id di URL
+			$id = $_REQUEST['id_edit'];
+			
+			//query ke database SELECT tabel mahasiswa berdasarkan id = $id
+			$select = mysqli_query($con, "SELECT * FROM datasemuabengkel WHERE id_bengkel='$id'") or die(mysqli_error($con));
+			
+			//jika hasil query = 0 maka muncul pesan error
+			if(mysqli_num_rows($select) == 0){
+				echo '<div class="alert alert-warning">ID tidak ada dalam database.</div>';
+				exit();
+			}
+		?>
+		
+		<?php
+		//jika tombol simpan di tekan/klik
+		if(isset($_POST['submit'])){
+			$nama = $_POST['nama'];
+            $alamat = $_POST['alamat'];
+            $telepon = $_POST['telepon'];
+            $website = $_POST['website'];
+            $longitude = $_POST['longitude'];
+            $latitude = $_POST['latitude'];
+            $tipe = $_POST['tipe'];
+			
+			$sql = mysqli_query($con, "UPDATE datasemuabengkel SET nama='$nama', alamat='$alamat', telepon='$telepon', website='$website', longitude='$longitude', latitude='$latitude', tipe='$tipe' WHERE id_bengkel='$id'") or die(mysqli_error($con));
+			
+			if($sql){
+				echo '<script>alert("Berhasil menyimpan data."); document.location="edit.php?id='.$id.'";</script>';
+			}else{
+				echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
+			}
+		}
+		?>
+		
+		<form action="edit.php?id_edit=<?php echo $id; ?>" method="post">
+        <div class="form-group row">
+				<label class="col-sm-2 col-form-label">Nama</label>
+				<div class="col-sm-10">
+					<input type="text" name="nama" class="form-control" size="4" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Alamat</label>
+				<div class="col-sm-10">
+					<input type="text" name="alamat" class="form-control" required>
+				</div>
+			</div>
+            <div class="form-group row">
+				<label class="col-sm-2 col-form-label">Telepon</label>
+				<div class="col-sm-10">
+					<input type="text" name="telepon" class="form-control" size="4" >
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Website</label>
+				<div class="col-sm-10">
+					<input type="text" name="website" class="form-control" >
+				</div>
+			</div>
+            <div class="form-group row">
+				<label class="col-sm-2 col-form-label">Longitude</label>
+				<div class="col-sm-10">
+					<input type="text" name="longitude" class="form-control" size="4" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Latitude</label>
+				<div class="col-sm-10">
+					<input type="text" name="latitude" class="form-control" required>
+				</div>
+			</div>
+			
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Tipe</label>
+				<div class="col-sm-10">
+					<input type="text" name="tipe" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">&nbsp;</label>
+				<div class="col-sm-10">
+					<input type="submit" name="submit" class="btn btn-primary" value="SIMPAN">
+					<a href="admin.php" class="btn btn-warning">KEMBALI</a>
+				</div>
+			</div>
+		</form>
+		
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	
 </body>
 </html>

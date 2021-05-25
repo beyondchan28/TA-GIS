@@ -13,12 +13,13 @@ if (isset($_POST['username'])) { // check apakah ada pengiriman data
  
     if ($query->num_rows > 0) { // jika datanya ada
         $row = $query->fetch_assoc();
-        $_SESSION['namaLog'] = $row['nama']; // menyimpan nama yang login pada session
-        header('location:admin.php');
+        $_SESSION['username'] = $row['username']; // menyimpan nama yang login pada session
+        header("Location: admin.php");
+
  
     } else { // jika datanya tidak ada
         echo "<script>alert('Username & Password Salah !!!'); window.location.href='index.php'</script>";
     }
     exit();
 }
-?>s
+?>
