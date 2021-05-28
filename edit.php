@@ -39,11 +39,6 @@
 			//query ke database SELECT tabel mahasiswa berdasarkan id = $id
 			$select = mysqli_query($con, "SELECT * FROM datasemuabengkel WHERE id_bengkel='$id'") or die(mysqli_error($con));
 			
-			//jika hasil query = 0 maka muncul pesan error
-			if(mysqli_num_rows($select) == 0){
-				echo '<div class="alert alert-warning">ID tidak ada dalam database.</div>';
-				exit();
-			}
 		?>
 		
 		<?php
@@ -64,7 +59,9 @@
 			}else{
 				echo '<div class="alert alert-warning">Gagal melakukan proses edit data.</div>';
 			}
+			header("Location: admin.php");
 		}
+		
 		?>
 		
 		<form action="edit.php?id_edit=<?php echo $id; ?>" method="post">

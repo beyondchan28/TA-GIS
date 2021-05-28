@@ -309,30 +309,30 @@
     </div>
     <div id="content" class="container">
         <div class="row text-center m-4">
-        <<div class="col-lg-4">
+        <div class="col-lg-4">
                 <i class="fas fa-bicycle fa-6x"></i>
                 <h2>Bengkel Sepeda</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel sepeda.</p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel sepeda.</p>
                 <p><a class="btn btn-secondary" href="sepeda.php">View Bengkel Sepeda &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <i class="fas fa-motorcycle fa-6x"></i>
                 <h2>Bengkel Motor</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel motor.</p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel motor.</p>
                 <p><a class="btn btn-secondary" href="motor.php">View Bengkel Motor &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <i class="fas fa-car-side fa-6x"></i>
                 <h2>Bengkel Mobil</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel mobil. </p>
-                <p><a class="btn btn-secondary" href="mobil.php">View Bengkel Mobil&raquo;</a></p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel mobil. </p>
+                <p><a class="btn btn-secondary" href="mobil.php">View Bengkel Mobil &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
         <div class="row">
             <div class='sidebar'>
                 <div class='heading'>
                     <strong>
-                        <h1>Daftar Bengkel Sepeda</h1>
+                        <h1>Daftar Bengkel Mobil</h1>
                     </strong>
                 </div>
                 <div id='listings' class='listings'></div>
@@ -361,7 +361,7 @@
                 </tr>
                 <?php
                 include "koneksi.php";
-                $sql = mysqli_query($con, "SELECT * FROM datasemuabengkel WHERE tipe='mobil") or die(mysqli_error($con));
+                $sql = mysqli_query($con, "SELECT * FROM datasemuabengkel WHERE tipe='mobil'") or die(mysqli_error($con));
 
                 while ($data = mysqli_fetch_array($sql)) {
                     echo '

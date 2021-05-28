@@ -312,19 +312,19 @@
         <div class="col-lg-4">
                 <i class="fas fa-bicycle fa-6x"></i>
                 <h2>Bengkel Sepeda</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel sepeda.</p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel sepeda.</p>
                 <p><a class="btn btn-secondary" href="sepeda.php">View Bengkel Sepeda &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <i class="fas fa-motorcycle fa-6x"></i>
                 <h2>Bengkel Motor</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel motor.</p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel motor.</p>
                 <p><a class="btn btn-secondary" href="motor.php">View Bengkel Motor &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
                 <i class="fas fa-car-side fa-6x"></i>
                 <h2>Bengkel Mobil</h2>
-                <p>Klik untuk menampilkan hanya kumpulan bengekel mobil. </p>
+                <p>Klik untuk menampilkan hanya kumpulan bengkel mobil. </p>
                 <p><a class="btn btn-secondary" href="mobil.php">View Bengkel Mobil&raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->
